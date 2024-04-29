@@ -10,9 +10,9 @@ def definir_pesos():
     pesos_window.title("Definir Pesos")
 
     campos = [
-        "Administracao:", "Número de Matrículas", "Creche:", "Pre_escola:", "Primeiro_ano:",
-        "Segundo_ano:", "Terceiro_ano:", "Quarto_ano:", "Quinto_ano:",
-        "Sexto_ano:", "Setimo_ano:", "Oitavo_ano:", "Nono_ano:"
+        "Administracao:", "Número de Matrículas", "Creche:", "Pré escola:", "1 ano:",
+        "2 ano:", "3 ano:", "4 ano:", "5 ano:",
+        "6 ano:", "7 ano:", "8 ano:", "9 ano:"
     ]
 
     pesos_entry = {}
@@ -37,17 +37,30 @@ def definir_pesos():
 
 
 def inserir_caso():
-    # Função para inserir caso de entrada
     global entrada_entries
     entrada_window = tk.Toplevel(root)
     entrada_window.title("Inserir Caso de Entrada")
     entrada_entries = []
-    for i in range(5):
-        label = tk.Label(entrada_window, text=f"Campo {i + 1}:")
-        label.grid(row=i, column=0, padx=5, pady=5)
-        entrada_entry = tk.Entry(entrada_window)
-        entrada_entry.grid(row=i, column=1, padx=5, pady=5)
-        entrada_entries.append(entrada_entry)
+
+    campos = [
+        "Administracao:", "Creche:", "Pré escola:", "1 ano:",
+        "2 ano:", "3 ano:", "4 ano:", "5 ano:",
+        "6 ano:", "7 ano:", "8 ano:", "9 ano:"
+    ]
+
+    for i, campo in enumerate(campos):
+        label = tk.Label(entrada_window, text=campo)
+        label.grid(row=i, column=0, padx=5, pady=5, sticky="w")
+
+        if campo == "Administracao:":
+            admin_combobox = ttk.Combobox(entrada_window, values=["Federal", "Estadual", "Municipal", "Particular"])
+            admin_combobox.grid(row=i, column=1, padx=5, pady=5)
+            entrada_entries.append(admin_combobox)
+        else:
+            entry = tk.Entry(entrada_window)
+            entry.grid(row=i, column=1, padx=5, pady=5)
+            entrada_entries.append(entry)
+
 
 
 def gerar_similaridade():
