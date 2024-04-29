@@ -23,7 +23,7 @@ def definir_pesos():
 
         # Para o campo "Administracao:", usaremos um Combobox
         if campo == "Administracao:":
-            admin_combobox = ttk.Combobox(pesos_window, values=["federal", "estadual", "municipal", "particular"])
+            admin_combobox = ttk.Combobox(pesos_window, values=["Federal", "Estadual", "Municipal", "Particular"])
             admin_combobox.grid(row=i, column=1, padx=5, pady=5)
             pesos_entry[campo] = admin_combobox
         elif campo == "Número de Matrículas":
