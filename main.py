@@ -42,10 +42,10 @@ def definir_pesos():
 
     for i, campo in enumerate(campos):
         label = tk.Label(pesos_window, text=campo)
-        label.grid(row=i, column=0, padx=5, pady=5, sticky="w")
+        label.grid(row=i, column=0, padx=5, pady=2, sticky="w")
 
         entry = tk.Entry(pesos_window)
-        entry.grid(row=i, column=1, padx=5, pady=5)
+        entry.grid(row=i, column=1, padx=5, pady=2)
         entry.insert(0, pesos_values.get(campo, "1.0"))
         pesos_entry[campo] = entry
 
@@ -78,15 +78,15 @@ def inserir_caso():
 
     for i, campo in enumerate(campos):
         label = tk.Label(entrada_window, text=campo)
-        label.grid(row=i, column=0, padx=5, pady=5, sticky="w")
+        label.grid(row=i, column=0, padx=5, pady=2, sticky="w")
 
         if campo == "Administracao:":
             admin_combobox = ttk.Combobox(entrada_window, values=["Federal", "Estadual", "Municipal", "Particular"])
-            admin_combobox.grid(row=i, column=1, padx=5, pady=5)
+            admin_combobox.grid(row=i, column=1, padx=5, pady=2, sticky="we")
             entrada_entries.append(admin_combobox)
         else:
             entry = tk.Entry(entrada_window)
-            entry.grid(row=i, column=1, padx=5, pady=5)
+            entry.grid(row=i, column=1, padx=5, pady=2, sticky="we")
             entrada_entries.append(entry)
 
     gerar_similaridade_button = tk.Button(entrada_window, text="Gerar Similaridade", command=lambda: gerar_similaridade(entrada_window))
@@ -104,8 +104,16 @@ def gerar_similaridade(window):
         count = 0
 
         # Criar Treeview para exibir as linhas da planilha em formato de tabela
-        tree = ttk.Treeview(window)
-        tree.grid(row=len(entrada_entries) + 1, columnspan=2, padx=5, pady=5, sticky="nsew")
+        tree_frame = ttk.Frame(window)
+        tree_frame.grid(row=len(entrada_entries) + 1, columnspan=2, padx=5, pady=5, sticky="nsew")
+
+        tree = ttk.Treeview(tree_frame)
+        tree.pack(side="left", fill="both", expand=True)
+
+        # Configurar a barra de rolagem
+        tree_scroll = ttk.Scrollbar(tree_frame, orient="vertical", command=tree.yview)
+        tree_scroll.pack(side="right", fill="y")
+        tree.configure(yscrollcommand=tree_scroll.set)
 
         # Configurar as colunas
         tree["columns"] = sheet[1]
@@ -131,23 +139,12 @@ def gerar_similaridade(window):
         tree.heading("#18", text="9 ano")
 
         for col, title in enumerate(sheet[1], start=1):
-            #tree.heading(f"#{col}", text=title)
             tree.column(f"#{col}", width=100)  # Definindo largura padrão para as colunas
 
         # Adicionar linhas
         for row_data in sheet.iter_rows(min_row=2, values_only=True):
             tree.insert("", "end", text=count, values=row_data)
             count += 1
-
-        # Adicionar barra de rolagem horizontal
-        hscroll = ttk.Scrollbar(window, orient="horizontal", command=tree.xview)
-        hscroll.grid(row=len(entrada_entries) + 2, column=0, columnspan=2, sticky="ew")
-        tree.configure(xscrollcommand=hscroll.set)
-
-        # Definir largura máxima da janela da Treeview
-        tree_width = min(800, sum([100 for _ in sheet[1]]))  # Defina a largura máxima aqui
-        tree_width += 50  # Adicionar espaço extra para a barra de rolagem
-        window.geometry(f"{tree_width}x400")
 
         workbook.close()
 
