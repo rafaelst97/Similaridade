@@ -103,18 +103,53 @@ def gerar_similaridade(window):
         sheet = workbook.active
         count = 0
 
-        # Aqui você pode fazer os cálculos com todas as linhas e colunas do arquivo XLSX
-        # Por exemplo, calcular a similaridade entre os pesos definidos e os dados do arquivo
+        # Criar Treeview para exibir as linhas da planilha em formato de tabela
+        tree = ttk.Treeview(window)
+        tree.grid(row=len(entrada_entries) + 1, columnspan=2, padx=5, pady=5, sticky="nsew")
 
-        # Imprimir as 5 primeiras linhas
-        for row in sheet.iter_rows(values_only=True):
-            print(row)
+        # Configurar as colunas
+        tree["columns"] = sheet[1]
+        tree.heading("#0", text="ID")
+        tree.column("#0", width=50, stretch=False)
+        tree.heading("#1", text="Ano")
+        tree.heading("#2", text="Cód. Mun.")
+        tree.heading("#3", text="Município")
+        tree.heading("#4", text="Cód. INEP")
+        tree.heading("#5", text="Nome da Escola")
+        tree.heading("#6", text="Dep. Adm.")
+        tree.heading("#7", text="Classe de Alfabetização")
+        tree.heading("#8", text="Creche")
+        tree.heading("#9", text="Pré escola")
+        tree.heading("#10", text="1 ano")
+        tree.heading("#11", text="2 ano")
+        tree.heading("#12", text="3 ano")
+        tree.heading("#13", text="4 ano")
+        tree.heading("#14", text="5 ano")
+        tree.heading("#15", text="6 ano")
+        tree.heading("#16", text="7 ano")
+        tree.heading("#17", text="8 ano")
+        tree.heading("#18", text="9 ano")
+
+        for col, title in enumerate(sheet[1], start=1):
+            #tree.heading(f"#{col}", text=title)
+            tree.column(f"#{col}", width=100)  # Definindo largura padrão para as colunas
+
+        # Adicionar linhas
+        for row_data in sheet.iter_rows(min_row=2, values_only=True):
+            tree.insert("", "end", text=count, values=row_data)
             count += 1
-            if count > 10:
-                break
+
+        # Adicionar barra de rolagem horizontal
+        hscroll = ttk.Scrollbar(window, orient="horizontal", command=tree.xview)
+        hscroll.grid(row=len(entrada_entries) + 2, column=0, columnspan=2, sticky="ew")
+        tree.configure(xscrollcommand=hscroll.set)
+
+        # Definir largura máxima da janela da Treeview
+        tree_width = min(800, sum([100 for _ in sheet[1]]))  # Defina a largura máxima aqui
+        tree_width += 50  # Adicionar espaço extra para a barra de rolagem
+        window.geometry(f"{tree_width}x400")
 
         workbook.close()
-        window.destroy()
 
 root = tk.Tk()
 root.title("Programa de Definição de Pesos e Inserção de Caso de Entrada")
