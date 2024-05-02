@@ -107,13 +107,39 @@ def gerar_similaridade(window):
         tree_frame = ttk.Frame(window)
         tree_frame.grid(row=len(entrada_entries) + 1, columnspan=2, padx=5, pady=5, sticky="nsew")
 
+        # Criar um Canvas para conter a Treeview
+        canvas = tk.Canvas(tree_frame)
+        canvas.pack(side="top", fill="both", expand=True)
+
+        # Adicionar uma barra de rolagem horizontal ao Canvas
+        tree_scroll_x = ttk.Scrollbar(tree_frame, orient="horizontal", command=canvas.xview)
+        tree_scroll_x.pack(side="bottom", fill="x")
+
         tree = ttk.Treeview(tree_frame)
         tree.pack(side="left", fill="both", expand=True)
 
         # Configurar a barra de rolagem
-        tree_scroll = ttk.Scrollbar(tree_frame, orient="vertical", command=tree.yview)
-        tree_scroll.pack(side="right", fill="y")
-        tree.configure(yscrollcommand=tree_scroll.set)
+        # tree_scroll = ttk.Scrollbar(tree_frame, orient="vertical", command=tree.yview)
+        # tree_scroll.pack(side="right", fill="y")
+        # tree.configure(yscrollcommand=tree_scroll.set)
+
+        # Configurar o Canvas para rolar horizontalmente com a barra de rolagem
+        canvas.configure(xscrollcommand=tree_scroll_x.set)
+
+        # Permitir a rolagem horizontal do Canvas
+        def on_canvas_configure(event):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+
+        canvas.bind("<Configure>", on_canvas_configure)
+
+        # Anexar a Treeview ao Canvas
+        canvas.create_window((0, 0), window=tree, anchor="nw")
+
+        # Permitir a rolagem do Canvas
+        def on_tree_configure(event):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+
+        tree.bind("<Configure>", on_tree_configure)
 
         # Configurar as colunas
         tree["columns"] = sheet[1]
