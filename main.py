@@ -6,18 +6,19 @@ import openpyxl
 
 # Valores pré-definidos para os pesos
 pesos_predefinidos = {
-    "Administracao:": "1.0",
-    "Creche:": "1.0",
-    "Pré escola:": "1.0",
-    "1 ano:": "1.0",
-    "2 ano:": "1.0",
-    "3 ano:": "1.0",
-    "4 ano:": "1.0",
-    "5 ano:": "1.0",
-    "6 ano:": "1.0",
-    "7 ano:": "1.0",
-    "8 ano:": "1.0",
-    "9 ano:": "1.0"
+    "Administracao:": "0.8",
+    "Classe de Alfabetização:": "0.2",
+    "Creche:": "0.2",
+    "Pré escola:": "0.2",
+    "1 ano:": "0.5",
+    "2 ano:": "0.5",
+    "3 ano:": "0.5",
+    "4 ano:": "0.5",
+    "6 ano:": "0.5",
+    "5 ano:": "0.5",
+    "7 ano:": "0.5",
+    "8 ano:": "0.5",
+    "9 ano:": "0.5"
 }
 
 # Variáveis globais para armazenar os valores dos pesos
@@ -33,7 +34,7 @@ def definir_pesos():
     pesos_window.title("Definir Pesos")
 
     campos = [
-        "Administracao:", "Creche:", "Pré escola:", "1 ano:",
+        "Administracao:", "Classe de Alfabetização:", "Creche:", "Pré escola:", "1 ano:",
         "2 ano:", "3 ano:", "4 ano:", "5 ano:",
         "6 ano:", "7 ano:", "8 ano:", "9 ano:"
     ]
@@ -71,7 +72,7 @@ def inserir_caso():
     entrada_entries = []
 
     campos = [
-        "Administracao:", "Creche:", "Pré escola:", "1 ano:",
+        "Administracao:","Classe de Alfabetização:", "Creche:", "Pré escola:", "1 ano:",
         "2 ano:", "3 ano:", "4 ano:", "5 ano:",
         "6 ano:", "7 ano:", "8 ano:", "9 ano:"
     ]
@@ -95,13 +96,13 @@ def inserir_caso():
 def gerar_similaridade(window):
     global pesos_values
     global entrada_entries
+    count = 0
 
     # Lê o arquivo XLSX
     file_path = "Base_de_dados.xlsx"
     if file_path:
         workbook = openpyxl.load_workbook(file_path)
         sheet = workbook.active
-        count = 0
 
         # Criar Treeview para exibir as linhas da planilha em formato de tabela
         tree_frame = ttk.Frame(window)
@@ -169,6 +170,406 @@ def gerar_similaridade(window):
 
         # Adicionar linhas
         for row_data in sheet.iter_rows(min_row=2, values_only=True):
+
+            similaridade_adm = 0
+            similaridade_classe_alfabetizacao = 0
+            similaridade_creche = 0
+            similaridade_pre_escola = 0
+            similaridade_1_ano = 0
+            similaridade_2_ano = 0
+            similaridade_3_ano = 0
+            similaridade_4_ano = 0
+            similaridade_5_ano = 0
+            similaridade_6_ano = 0
+            similaridade_7_ano = 0
+            similaridade_8_ano = 0
+            similaridade_9_ano = 0
+            similaridade_caso = 0
+            soma_pesos = 0
+
+            if count > 1:
+                for column in range(1, len(row_data)):
+
+                    #Similaridade de Administração
+                    if column == 5:
+                        if entrada_entries[0].get() == "Federal" and row_data[column] == "Federal":
+                            similaridade_adm = 1
+                        elif entrada_entries[0].get() == "Federal" and row_data[column] == "Estadual":
+                            similaridade_adm = 0.6
+                        elif entrada_entries[0].get() == "Federal" and row_data[column] == "Municipal":
+                            similaridade_adm = 0.3
+                        elif entrada_entries[0].get() == "Federal" and row_data[column] == "Particular":
+                            similaridade_adm = 0
+                        elif entrada_entries[0].get() == "Estadual" and row_data[column] == "Federal":
+                            similaridade_adm = 0.6
+                        elif entrada_entries[0].get() == "Estadual" and row_data[column] == "Estadual":
+                            similaridade_adm = 1
+                        elif entrada_entries[0].get() == "Estadual" and row_data[column] == "Municipal":
+                            similaridade_adm = 0.6
+                        elif entrada_entries[0].get() == "Estadual" and row_data[column] == "Particular":
+                            similaridade_adm = 0
+                        elif entrada_entries[0].get() == "Municipal" and row_data[column] == "Federal":
+                            similaridade_adm = 0.3
+                        elif entrada_entries[0].get() == "Municipal" and row_data[column] == "Estadual":
+                            similaridade_adm = 0.6
+                        elif entrada_entries[0].get() == "Municipal" and row_data[column] == "Municipal":
+                            similaridade_adm = 1
+                        elif entrada_entries[0].get() == "Municipal" and row_data[column] == "Particular":
+                            similaridade_adm = 0
+                        elif entrada_entries[0].get() == "Particular" and row_data[column] == "Federal":
+                            similaridade_adm = 0
+                        elif entrada_entries[0].get() == "Particular" and row_data[column] == "Estadual":
+                            similaridade_adm = 0
+                        elif entrada_entries[0].get() == "Particular" and row_data[column] == "Municipal":
+                            similaridade_adm = 0
+                        elif entrada_entries[0].get() == "Particular" and row_data[column] == "Particular":
+                            similaridade_adm = 1
+
+                    #Similaridade de Classe de Alfabetização
+                    if column == 6:
+                        classe_alfabetizacao_valor_1 = 0
+                        classe_alfabetizacao_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] <= 50:
+                            classe_alfabetizacao_valor_1 = 1
+                        elif row_data[column] > 50 and row_data[column] <= 100:
+                            classe_alfabetizacao_valor_1 = 2
+                        elif row_data[column] > 100 and row_data[column] <= 200:
+                            classe_alfabetizacao_valor_1 = 3
+                        elif row_data[column] > 200 and row_data[column] < 300:
+                            classe_alfabetizacao_valor_1 = 4
+                        elif row_data[column] >= 300:
+                            classe_alfabetizacao_valor_1 = 5
+
+                        if entrada_entries[1].get() >= 0 and entrada_entries[1].get() <= 50:
+                            classe_alfabetizacao_valor_2 = 1
+                        elif entrada_entries[1].get() > 50 and entrada_entries[1].get() <= 100:
+                            classe_alfabetizacao_valor_2 = 2
+                        elif entrada_entries[1].get() > 100 and entrada_entries[1].get() <= 200:
+                            classe_alfabetizacao_valor_2 = 3
+                        elif entrada_entries[1].get() > 200 and entrada_entries[1].get() < 300:
+                            classe_alfabetizacao_valor_2 = 4
+                        elif entrada_entries[1].get() >= 300:
+                            classe_alfabetizacao_valor_2 = 5
+
+                        similaridade_classe_alfabetizacao = (1 - ((classe_alfabetizacao_valor_2 - classe_alfabetizacao_valor_1) * -1)) / 5
+
+                    #Similaridade de Creche
+                    if column == 7:
+                        creche_valor_1 = 0
+                        creche_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 50:
+                            creche_valor_1 = 1
+                        elif row_data[column] >= 50 and row_data[column] < 100:
+                            creche_valor_1 = 2
+                        elif row_data[column] >= 100 and row_data[column] < 200:
+                            creche_valor_1 = 3
+                        elif row_data[column] >= 200 and row_data[column] < 300:
+                            creche_valor_1 = 4
+                        elif row_data[column] >= 300:
+                            creche_valor_1 = 5
+
+                        if entrada_entries[2].get() >= 0 and entrada_entries[2].get() < 50:
+                            creche_valor_2 = 1
+                        elif entrada_entries[2].get() >= 50 and entrada_entries[2].get() < 100:
+                            creche_valor_2 = 2
+                        elif entrada_entries[2].get() >= 100 and entrada_entries[2].get() < 200:
+                            creche_valor_2 = 3
+                        elif entrada_entries[2].get() >= 200 and entrada_entries[2].get() < 300:
+                            creche_valor_2 = 4
+                        elif entrada_entries[2].get() >= 300:
+                            creche_valor_2 = 5
+
+                        similaridade_creche = (1 - ((creche_valor_2 - creche_valor_1) * -1)) / 5
+
+                    #Similaridade de Pré escola
+                    if column == 8:
+                        pre_escola_valor_1 = 0
+                        pre_escola_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 200:
+                            pre_escola_valor_1 = 1
+                        elif row_data[column] >= 200 and row_data[column] < 400:
+                            pre_escola_valor_1 = 2
+                        elif row_data[column] >= 400 and row_data[column] < 600:
+                            pre_escola_valor_1 = 3
+                        elif row_data[column] >= 600 and row_data[column] < 800:
+                            pre_escola_valor_1 = 4
+                        elif row_data[column] >= 800:
+                            pre_escola_valor_1 = 5
+
+                        if entrada_entries[3].get() >= 0 and entrada_entries[3].get() < 200:
+                            pre_escola_valor_2 = 1
+                        elif entrada_entries[3].get() >= 200 and entrada_entries[3].get() < 400:
+                            pre_escola_valor_2 = 2
+                        elif entrada_entries[3].get() >= 400 and entrada_entries[3].get() < 600:
+                            pre_escola_valor_2 = 3
+                        elif entrada_entries[3].get() >= 600 and entrada_entries[3].get() < 800:
+                            pre_escola_valor_2 = 4
+                        elif entrada_entries[3].get() >= 800:
+                            pre_escola_valor_2 = 5
+
+                        similaridade_pre_escola = (1 - ((pre_escola_valor_2 - pre_escola_valor_1) * -1)) / 5
+
+                    #Similaridade de 1 ano
+                    if column == 9:
+                        ano_1_valor_1 = 0
+                        ano_1_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 50:
+                            ano_1_valor_1 = 1
+                        elif row_data[column] >= 50 and row_data[column] < 100:
+                            ano_1_valor_1 = 2
+                        elif row_data[column] >= 100 and row_data[column] < 150:
+                            ano_1_valor_1 = 3
+                        elif row_data[column] >= 150 and row_data[column] < 200:
+                            ano_1_valor_1 = 4
+                        elif row_data[column] >= 200:
+                            ano_1_valor_1 = 5
+
+                        if entrada_entries[4].get() >= 0 and entrada_entries[4].get() < 50:
+                            ano_1_valor_2 = 1
+                        elif entrada_entries[4].get() >= 50 and entrada_entries[4].get() < 100:
+                            ano_1_valor_2 = 2
+                        elif entrada_entries[4].get() >= 100 and entrada_entries[4].get() < 150:
+                            ano_1_valor_2 = 3
+                        elif entrada_entries[4].get() >= 150 and entrada_entries[4].get() < 200:
+                            ano_1_valor_2 = 4
+                        elif entrada_entries[4].get() >= 200:
+                            ano_1_valor_2 = 5
+
+                        similaridade_1_ano = (1 - ((ano_1_valor_2 - ano_1_valor_1) * -1)) / 5
+
+                    #Similaridade de 2 ano
+                    if column == 10:
+                        ano_2_valor_1 = 0
+                        ano_2_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 100:
+                            ano_2_valor_1 = 1
+                        elif row_data[column] >= 100 and row_data[column] < 200:
+                            ano_2_valor_1 = 2
+                        elif row_data[column] >= 200 and row_data[column] < 300:
+                            ano_2_valor_1 = 3
+                        elif row_data[column] >= 300 and row_data[column] < 400:
+                            ano_2_valor_1 = 4
+                        elif row_data[column] >= 400:
+                            ano_2_valor_1 = 5
+
+                        if entrada_entries[5].get() >= 0 and entrada_entries[5].get() < 100:
+                            ano_2_valor_2 = 1
+                        elif entrada_entries[5].get() >= 100 and entrada_entries[5].get() < 200:
+                            ano_2_valor_2 = 2
+                        elif entrada_entries[5].get() >= 200 and entrada_entries[5].get() < 300:
+                            ano_2_valor_2 = 3
+                        elif entrada_entries[5].get() >= 300 and entrada_entries[5].get() < 400:
+                            ano_2_valor_2 = 4
+                        elif entrada_entries[5].get() >= 400:
+                            ano_2_valor_2 = 5
+
+                        similaridade_2_ano = (1 - ((ano_2_valor_2 - ano_2_valor_1) * -1)) / 5
+
+                    #Similaridade de 3 ano
+                    if column == 11:
+                        ano_3_valor_1 = 0
+                        ano_3_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 100:
+                            ano_3_valor_1 = 1
+                        elif row_data[column] >= 100 and row_data[column] < 200:
+                            ano_3_valor_1 = 2
+                        elif row_data[column] >= 200 and row_data[column] < 300:
+                            ano_3_valor_1 = 3
+                        elif row_data[column] >= 300 and row_data[column] < 400:
+                            ano_3_valor_1 = 4
+                        elif row_data[column] >= 400:
+                            ano_3_valor_1 = 5
+
+                        if entrada_entries[6].get() >= 0 and entrada_entries[6].get() < 100:
+                            ano_3_valor_2 = 1
+                        elif entrada_entries[6].get() >= 100 and entrada_entries[6].get() < 200:
+                            ano_3_valor_2 = 2
+                        elif entrada_entries[6].get() >= 200 and entrada_entries[6].get() < 300:
+                            ano_3_valor_2 = 3
+                        elif entrada_entries[6].get() >= 300 and entrada_entries[6].get() < 400:
+                            ano_3_valor_2 = 4
+                        elif entrada_entries[6].get() >= 400:
+                            ano_3_valor_2 = 5
+
+                        similaridade_3_ano = (1 - ((ano_3_valor_2 - ano_3_valor_1) * -1)) / 5
+
+                    #Similaridade de 4 ano
+                    if column == 12:
+                        ano_4_valor_1 = 0
+                        ano_4_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 100:
+                            ano_4_valor_1 = 1
+                        elif row_data[column] >= 100 and row_data[column] < 200:
+                            ano_4_valor_1 = 2
+                        elif row_data[column] >= 200 and row_data[column] < 300:
+                            ano_4_valor_1 = 3
+                        elif row_data[column] >= 300 and row_data[column] < 400:
+                            ano_4_valor_1 = 4
+                        elif row_data[column] >= 400:
+                            ano_4_valor_1 = 5
+
+                        if entrada_entries[7].get() >= 0 and entrada_entries[7].get() < 100:
+                            ano_4_valor_2 = 1
+                        elif entrada_entries[7].get() >= 100 and entrada_entries[7].get() < 200:
+                            ano_4_valor_2 = 2
+                        elif entrada_entries[7].get() >= 200 and entrada_entries[7].get() < 300:
+                            ano_4_valor_2 = 3
+                        elif entrada_entries[7].get() >= 300 and entrada_entries[7].get() < 400:
+                            ano_4_valor_2 = 4
+                        elif entrada_entries[7].get() >= 400:
+                            ano_4_valor_2 = 5
+
+                        similaridade_4_ano = (1 - ((ano_4_valor_2 - ano_4_valor_1) * -1)) / 5
+
+                    #Similaridade de 5 ano
+                    if column == 13:
+                        ano_5_valor_1 = 0
+                        ano_5_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 100:
+                            ano_5_valor_1 = 1
+                        elif row_data[column] >= 100 and row_data[column] < 200:
+                            ano_5_valor_1 = 2
+                        elif row_data[column] >= 200 and row_data[column] < 300:
+                            ano_5_valor_1 = 3
+                        elif row_data[column] >= 300 and row_data[column] < 400:
+                            ano_5_valor_1 = 4
+                        elif row_data[column] >= 400:
+                            ano_5_valor_1 = 5
+
+                        if entrada_entries[8].get() >= 0 and entrada_entries[8].get() < 100:
+                            ano_5_valor_2 = 1
+                        elif entrada_entries[8].get() >= 100 and entrada_entries[8].get() < 200:
+                            ano_5_valor_2 = 2
+                        elif entrada_entries[8].get() >= 200 and entrada_entries[8].get() < 300:
+                            ano_5_valor_2 = 3
+                        elif entrada_entries[8].get() >= 300 and entrada_entries[8].get() < 400:
+                            ano_5_valor_2 = 4
+                        elif entrada_entries[8].get() >= 400:
+                            ano_5_valor_2 = 5
+
+                        similaridade_5_ano = (1 - ((ano_5_valor_2 - ano_5_valor_1) * -1)) / 5
+
+                    #Similaridade de 6 ano
+                    if column == 14:
+                        ano_6_valor_1 = 0
+                        ano_6_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 150:
+                            ano_6_valor_1 = 1
+                        elif row_data[column] >= 150 and row_data[column] < 300:
+                            ano_6_valor_1 = 2
+                        elif row_data[column] >= 300 and row_data[column] < 450:
+                            ano_6_valor_1 = 3
+                        elif row_data[column] >= 450 and row_data[column] < 600:
+                            ano_6_valor_1 = 4
+                        elif row_data[column] >= 600:
+                            ano_6_valor_1 = 5
+
+                        if entrada_entries[9].get() >= 0 and entrada_entries[9].get() < 150:
+                            ano_6_valor_2 = 1
+                        elif entrada_entries[9].get() >= 150 and entrada_entries[9].get() < 300:
+                            ano_6_valor_2 = 2
+                        elif entrada_entries[9].get() >= 300 and entrada_entries[9].get() < 450:
+                            ano_6_valor_2 = 3
+                        elif entrada_entries[9].get() >= 450 and entrada_entries[9].get() < 600:
+                            ano_6_valor_2 = 4
+                        elif entrada_entries[9].get() >= 600:
+                            ano_6_valor_2 = 5
+
+                        similaridade_6_ano = (1 - ((ano_6_valor_2 - ano_6_valor_1) * -1)) / 5
+
+                    #Similaridade de 7 ano
+                    if column == 15:
+                        ano_7_valor_1 = 0
+                        ano_7_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 150:
+                            ano_7_valor_1 = 1
+                        elif row_data[column] >= 150 and row_data[column] < 300:
+                            ano_7_valor_1 = 2
+                        elif row_data[column] >= 300 and row_data[column] < 450:
+                            ano_7_valor_1 = 3
+                        elif row_data[column] >= 450 and row_data[column] < 600:
+                            ano_7_valor_1 = 4
+                        elif row_data[column] >= 600:
+                            ano_7_valor_1 = 5
+
+                        if entrada_entries[10].get() >= 0 and entrada_entries[10].get() < 150:
+                            ano_7_valor_2 = 1
+                        elif entrada_entries[10].get() >= 150 and entrada_entries[10].get() < 300:
+                            ano_7_valor_2 = 2
+                        elif entrada_entries[10].get() >= 300 and entrada_entries[10].get() < 450:
+                            ano_7_valor_2 = 3
+                        elif entrada_entries[10].get() >= 450 and entrada_entries[10].get() < 600:
+                            ano_7_valor_2 = 4
+                        elif entrada_entries[10].get() >= 600:
+                            ano_7_valor_2 = 5
+
+                        similaridade_7_ano = (1 - ((ano_7_valor_2 - ano_7_valor_1) * -1)) / 5
+
+                    #Similaridade de 8 ano
+                    if column == 16:
+                        ano_8_valor_1 = 0
+                        ano_8_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 100:
+                            ano_8_valor_1 = 1
+                        elif row_data[column] >= 100 and row_data[column] < 200:
+                            ano_8_valor_1 = 2
+                        elif row_data[column] >= 200 and row_data[column] < 300:
+                            ano_8_valor_1 = 3
+                        elif row_data[column] >= 300 and row_data[column] < 400:
+                            ano_8_valor_1 = 4
+                        elif row_data[column] >= 400:
+                            ano_8_valor_1 = 5
+
+                        if entrada_entries[11].get() >= 0 and entrada_entries[11].get() < 100:
+                            ano_8_valor_2 = 1
+                        elif entrada_entries[11].get() >= 100 and entrada_entries[11].get() < 200:
+                            ano_8_valor_2 = 2
+                        elif entrada_entries[11].get() >= 200 and entrada_entries[11].get() < 300:
+                            ano_8_valor_2 = 3
+                        elif entrada_entries[11].get() >= 300 and entrada_entries[11].get() < 400:
+                            ano_8_valor_2 = 4
+                        elif entrada_entries[11].get() >= 400:
+                            ano_8_valor_2 = 5
+
+                        similaridade_8_ano = (1 - ((ano_8_valor_2 - ano_8_valor_1) * -1)) / 5
+
+                    #Similaridade de 9 ano
+                    if column == 17:
+                        ano_9_valor_1 = 0
+                        ano_9_valor_2 = 0
+                        if row_data[column] >= 0 and row_data[column] < 150:
+                            ano_9_valor_1 = 1
+                        elif row_data[column] >= 150 and row_data[column] < 300:
+                            ano_9_valor_1 = 2
+                        elif row_data[column] >= 300 and row_data[column] < 450:
+                            ano_9_valor_1 = 3
+                        elif row_data[column] >= 450 and row_data[column] < 600:
+                            ano_9_valor_1 = 4
+                        elif row_data[column] >= 600:
+                            ano_9_valor_1 = 5
+
+                        if entrada_entries[12].get() >= 0 and entrada_entries[12].get() < 150:
+                            ano_9_valor_2 = 1
+                        elif entrada_entries[12].get() >= 150 and entrada_entries[12].get() < 300:
+                            ano_9_valor_2 = 2
+                        elif entrada_entries[12].get() >= 300 and entrada_entries[12].get() < 450:
+                            ano_9_valor_2 = 3
+                        elif entrada_entries[12].get() >= 450 and entrada_entries[12].get() < 600:
+                            ano_9_valor_2 = 4
+                        elif entrada_entries[12].get() >= 600:
+                            ano_9_valor_2 = 5
+
+                        similaridade_9_ano = (1 - ((ano_9_valor_2 - ano_9_valor_1) * -1)) / 5
+
+                if count > 1:
+                    soma_pesos = float(pesos_values["Administracao:"]) + float(pesos_values["Classe de Alfabetização:"]) + float(pesos_values["Creche:"]) + float(pesos_values["Pré escola:"]) + float(pesos_values["1 ano:"]) + float(pesos_values["2 ano:"]) + float(pesos_values["3 ano:"]) + float(pesos_values["4 ano:"]) + float(pesos_values["5 ano:"]) + float(pesos_values["6 ano:"]) + float(pesos_values["7 ano:"]) + float(pesos_values["8 ano:"]) + float(pesos_values["9 ano:"])
+                    similaridade_caso = similaridade_adm * float(pesos_values["Administracao:"]) + similaridade_classe_alfabetizacao * float(pesos_values["Classe de Alfabetização:"]) + similaridade_creche * float(pesos_values["Creche:"]) + similaridade_pre_escola * float(pesos_values["Pré escola:"]) + similaridade_1_ano * float(pesos_values["1 ano:"]) + similaridade_2_ano * float(pesos_values["2 ano:"]) + similaridade_3_ano * float(pesos_values["3 ano:"]) + similaridade_4_ano * float(pesos_values["4 ano:"]) + similaridade_5_ano * float(pesos_values["5 ano:"]) + similaridade_6_ano * float(pesos_values["6 ano:"]) + similaridade_7_ano * float(pesos_values["7 ano:"]) + similaridade_8_ano * float(pesos_values["8 ano:"]) + similaridade_9_ano * float(pesos_values["9 ano:"])
+                    similaridade_caso = similaridade_caso / soma_pesos
+
+                    print(similaridade_caso)
+
+                #row_data[column] = pesos_values[sheet[1][column - 1].value] if row_data[column] == "S" else 0
+
             tree.insert("", "end", text=count, values=row_data)
             count += 1
 
