@@ -6,19 +6,19 @@ import openpyxl
 
 # Valores pré-definidos para os pesos
 pesos_predefinidos = {
-    "Administracao:": "0.8",
-    "Classe de Alfabetização:": "0.2",
-    "Creche:": "0.2",
-    "Pré escola:": "0.2",
-    "1 ano:": "0.5",
-    "2 ano:": "0.5",
-    "3 ano:": "0.5",
-    "4 ano:": "0.5",
-    "6 ano:": "0.5",
-    "5 ano:": "0.5",
-    "7 ano:": "0.5",
-    "8 ano:": "0.5",
-    "9 ano:": "0.5"
+    "Administracao:": 0.8,
+    "Classe de Alfabetização:": 0.2,
+    "Creche:": 0.2,
+    "Pré escola:": 0.2,
+    "1 ano:": 0.5,
+    "2 ano:": 0.5,
+    "3 ano:": 0.5,
+    "4 ano:": 0.5,
+    "6 ano:": 0.5,
+    "5 ano:": 0.5,
+    "7 ano:": 0.5,
+    "8 ano:": 0.5,
+    "9 ano:": 0.5
 }
 
 # Variáveis globais para armazenar os valores dos pesos
@@ -59,7 +59,7 @@ def confirmar_pesos():
     global pesos_window  # Atribuindo a pesos_window globalmente
 
     for campo, entry in pesos_entry.items():
-        pesos_values[campo] = entry.get()
+        pesos_values[campo] = float(entry.get())
 
     print("Pesos definidos:", pesos_values)
 
@@ -240,15 +240,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 300:
                             classe_alfabetizacao_valor_1 = 5
 
-                        if entrada_entries[1].get() >= 0 and entrada_entries[1].get() <= 50:
+                        if float(entrada_entries[1].get()) >= 0 and float(entrada_entries[1].get()) <= 50:
                             classe_alfabetizacao_valor_2 = 1
-                        elif entrada_entries[1].get() > 50 and entrada_entries[1].get() <= 100:
+                        elif float(entrada_entries[1].get()) > 50 and float(entrada_entries[1].get()) <= 100:
                             classe_alfabetizacao_valor_2 = 2
-                        elif entrada_entries[1].get() > 100 and entrada_entries[1].get() <= 200:
+                        elif float(entrada_entries[1].get()) > 100 and float(entrada_entries[1].get()) <= 200:
                             classe_alfabetizacao_valor_2 = 3
-                        elif entrada_entries[1].get() > 200 and entrada_entries[1].get() < 300:
+                        elif float(entrada_entries[1].get()) > 200 and float(entrada_entries[1].get()) < 300:
                             classe_alfabetizacao_valor_2 = 4
-                        elif entrada_entries[1].get() >= 300:
+                        elif float(entrada_entries[1].get()) >= 300:
                             classe_alfabetizacao_valor_2 = 5
 
                         similaridade_classe_alfabetizacao = (1 - ((classe_alfabetizacao_valor_2 - classe_alfabetizacao_valor_1) * -1)) / 5
@@ -268,15 +268,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 300:
                             creche_valor_1 = 5
 
-                        if entrada_entries[2].get() >= 0 and entrada_entries[2].get() < 50:
+                        if float(entrada_entries[2].get()) >= 0 and float(entrada_entries[2].get()) < 50:
                             creche_valor_2 = 1
-                        elif entrada_entries[2].get() >= 50 and entrada_entries[2].get() < 100:
+                        elif float(entrada_entries[2].get()) >= 50 and float(entrada_entries[2].get()) < 100:
                             creche_valor_2 = 2
-                        elif entrada_entries[2].get() >= 100 and entrada_entries[2].get() < 200:
+                        elif float(entrada_entries[2].get()) >= 100 and float(entrada_entries[2].get()) < 200:
                             creche_valor_2 = 3
-                        elif entrada_entries[2].get() >= 200 and entrada_entries[2].get() < 300:
+                        elif float(entrada_entries[2].get()) >= 200 and float (entrada_entries[2].get()) < 300:
                             creche_valor_2 = 4
-                        elif entrada_entries[2].get() >= 300:
+                        elif float(entrada_entries[2].get()) >= 300:
                             creche_valor_2 = 5
 
                         similaridade_creche = (1 - ((creche_valor_2 - creche_valor_1) * -1)) / 5
@@ -296,15 +296,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 800:
                             pre_escola_valor_1 = 5
 
-                        if entrada_entries[3].get() >= 0 and entrada_entries[3].get() < 200:
+                        if float(entrada_entries[3].get()) >= 0 and float(entrada_entries[3].get()) < 200:
                             pre_escola_valor_2 = 1
-                        elif entrada_entries[3].get() >= 200 and entrada_entries[3].get() < 400:
+                        elif float(entrada_entries[3].get()) >= 200 and float(entrada_entries[3].get()) < 400:
                             pre_escola_valor_2 = 2
-                        elif entrada_entries[3].get() >= 400 and entrada_entries[3].get() < 600:
+                        elif float(entrada_entries[3].get()) >= 400 and float(entrada_entries[3].get()) < 600:
                             pre_escola_valor_2 = 3
-                        elif entrada_entries[3].get() >= 600 and entrada_entries[3].get() < 800:
+                        elif float(entrada_entries[3].get()) >= 600 and float(entrada_entries[3].get()) < 800:
                             pre_escola_valor_2 = 4
-                        elif entrada_entries[3].get() >= 800:
+                        elif float(entrada_entries[3].get()) >= 800:
                             pre_escola_valor_2 = 5
 
                         similaridade_pre_escola = (1 - ((pre_escola_valor_2 - pre_escola_valor_1) * -1)) / 5
@@ -324,15 +324,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 200:
                             ano_1_valor_1 = 5
 
-                        if entrada_entries[4].get() >= 0 and entrada_entries[4].get() < 50:
+                        if float(entrada_entries[4].get()) >= 0 and float(entrada_entries[4].get()) < 50:
                             ano_1_valor_2 = 1
-                        elif entrada_entries[4].get() >= 50 and entrada_entries[4].get() < 100:
+                        elif float(entrada_entries[4].get()) >= 50 and float(entrada_entries[4].get()) < 100:
                             ano_1_valor_2 = 2
-                        elif entrada_entries[4].get() >= 100 and entrada_entries[4].get() < 150:
+                        elif float(entrada_entries[4].get()) >= 100 and float(entrada_entries[4].get()) < 150:
                             ano_1_valor_2 = 3
-                        elif entrada_entries[4].get() >= 150 and entrada_entries[4].get() < 200:
+                        elif float(entrada_entries[4].get()) >= 150 and float(entrada_entries[4].get()) < 200:
                             ano_1_valor_2 = 4
-                        elif entrada_entries[4].get() >= 200:
+                        elif float(entrada_entries[4].get()) >= 200:
                             ano_1_valor_2 = 5
 
                         similaridade_1_ano = (1 - ((ano_1_valor_2 - ano_1_valor_1) * -1)) / 5
@@ -352,15 +352,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 400:
                             ano_2_valor_1 = 5
 
-                        if entrada_entries[5].get() >= 0 and entrada_entries[5].get() < 100:
+                        if float(entrada_entries[5].get()) >= 0 and float(entrada_entries[5].get()) < 100:
                             ano_2_valor_2 = 1
-                        elif entrada_entries[5].get() >= 100 and entrada_entries[5].get() < 200:
+                        elif float(entrada_entries[5].get()) >= 100 and float(entrada_entries[5].get()) < 200:
                             ano_2_valor_2 = 2
-                        elif entrada_entries[5].get() >= 200 and entrada_entries[5].get() < 300:
+                        elif float(entrada_entries[5].get()) >= 200 and float(entrada_entries[5].get()) < 300:
                             ano_2_valor_2 = 3
-                        elif entrada_entries[5].get() >= 300 and entrada_entries[5].get() < 400:
+                        elif float(entrada_entries[5].get()) >= 300 and float(entrada_entries[5].get()) < 400:
                             ano_2_valor_2 = 4
-                        elif entrada_entries[5].get() >= 400:
+                        elif float(entrada_entries[5].get()) >= 400:
                             ano_2_valor_2 = 5
 
                         similaridade_2_ano = (1 - ((ano_2_valor_2 - ano_2_valor_1) * -1)) / 5
@@ -380,15 +380,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 400:
                             ano_3_valor_1 = 5
 
-                        if entrada_entries[6].get() >= 0 and entrada_entries[6].get() < 100:
+                        if float(entrada_entries[6].get()) >= 0 and float(entrada_entries[6].get()) < 100:
                             ano_3_valor_2 = 1
-                        elif entrada_entries[6].get() >= 100 and entrada_entries[6].get() < 200:
+                        elif float(entrada_entries[6].get()) >= 100 and float(entrada_entries[6].get()) < 200:
                             ano_3_valor_2 = 2
-                        elif entrada_entries[6].get() >= 200 and entrada_entries[6].get() < 300:
+                        elif float(entrada_entries[6].get()) >= 200 and float(entrada_entries[6].get()) < 300:
                             ano_3_valor_2 = 3
-                        elif entrada_entries[6].get() >= 300 and entrada_entries[6].get() < 400:
+                        elif float(entrada_entries[6].get()) >= 300 and float(entrada_entries[6].get()) < 400:
                             ano_3_valor_2 = 4
-                        elif entrada_entries[6].get() >= 400:
+                        elif float(entrada_entries[6].get()) >= 400:
                             ano_3_valor_2 = 5
 
                         similaridade_3_ano = (1 - ((ano_3_valor_2 - ano_3_valor_1) * -1)) / 5
@@ -408,15 +408,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 400:
                             ano_4_valor_1 = 5
 
-                        if entrada_entries[7].get() >= 0 and entrada_entries[7].get() < 100:
+                        if float(entrada_entries[7].get()) >= 0 and float(entrada_entries[7].get()) < 100:
                             ano_4_valor_2 = 1
-                        elif entrada_entries[7].get() >= 100 and entrada_entries[7].get() < 200:
+                        elif float(entrada_entries[7].get()) >= 100 and float(entrada_entries[7].get()) < 200:
                             ano_4_valor_2 = 2
-                        elif entrada_entries[7].get() >= 200 and entrada_entries[7].get() < 300:
+                        elif float(entrada_entries[7].get()) >= 200 and float(entrada_entries[7].get()) < 300:
                             ano_4_valor_2 = 3
-                        elif entrada_entries[7].get() >= 300 and entrada_entries[7].get() < 400:
+                        elif float(entrada_entries[7].get()) >= 300 and float(entrada_entries[7].get()) < 400:
                             ano_4_valor_2 = 4
-                        elif entrada_entries[7].get() >= 400:
+                        elif float(entrada_entries[7].get()) >= 400:
                             ano_4_valor_2 = 5
 
                         similaridade_4_ano = (1 - ((ano_4_valor_2 - ano_4_valor_1) * -1)) / 5
@@ -436,15 +436,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 400:
                             ano_5_valor_1 = 5
 
-                        if entrada_entries[8].get() >= 0 and entrada_entries[8].get() < 100:
+                        if float(entrada_entries[8].get()) >= 0 and float(entrada_entries[8].get()) < 100:
                             ano_5_valor_2 = 1
-                        elif entrada_entries[8].get() >= 100 and entrada_entries[8].get() < 200:
+                        elif float(entrada_entries[8].get()) >= 100 and float(entrada_entries[8].get()) < 200:
                             ano_5_valor_2 = 2
-                        elif entrada_entries[8].get() >= 200 and entrada_entries[8].get() < 300:
+                        elif float(entrada_entries[8].get()) >= 200 and float(entrada_entries[8].get()) < 300:
                             ano_5_valor_2 = 3
-                        elif entrada_entries[8].get() >= 300 and entrada_entries[8].get() < 400:
+                        elif float(entrada_entries[8].get()) >= 300 and float(entrada_entries[8].get()) < 400:
                             ano_5_valor_2 = 4
-                        elif entrada_entries[8].get() >= 400:
+                        elif float(entrada_entries[8].get()) >= 400:
                             ano_5_valor_2 = 5
 
                         similaridade_5_ano = (1 - ((ano_5_valor_2 - ano_5_valor_1) * -1)) / 5
@@ -464,15 +464,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 600:
                             ano_6_valor_1 = 5
 
-                        if entrada_entries[9].get() >= 0 and entrada_entries[9].get() < 150:
+                        if float(entrada_entries[9].get()) >= 0 and float(entrada_entries[9].get()) < 150:
                             ano_6_valor_2 = 1
-                        elif entrada_entries[9].get() >= 150 and entrada_entries[9].get() < 300:
+                        elif float(entrada_entries[9].get()) >= 150 and float(entrada_entries[9].get()) < 300:
                             ano_6_valor_2 = 2
-                        elif entrada_entries[9].get() >= 300 and entrada_entries[9].get() < 450:
+                        elif float(entrada_entries[9].get()) >= 300 and float(entrada_entries[9].get()) < 450:
                             ano_6_valor_2 = 3
-                        elif entrada_entries[9].get() >= 450 and entrada_entries[9].get() < 600:
+                        elif float(entrada_entries[9].get()) >= 450 and float(entrada_entries[9].get()) < 600:
                             ano_6_valor_2 = 4
-                        elif entrada_entries[9].get() >= 600:
+                        elif float(entrada_entries[9].get()) >= 600:
                             ano_6_valor_2 = 5
 
                         similaridade_6_ano = (1 - ((ano_6_valor_2 - ano_6_valor_1) * -1)) / 5
@@ -492,15 +492,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 600:
                             ano_7_valor_1 = 5
 
-                        if entrada_entries[10].get() >= 0 and entrada_entries[10].get() < 150:
+                        if float(entrada_entries[10].get()) >= 0 and float(entrada_entries[10].get()) < 150:
                             ano_7_valor_2 = 1
-                        elif entrada_entries[10].get() >= 150 and entrada_entries[10].get() < 300:
+                        elif float(entrada_entries[10].get()) >= 150 and float(entrada_entries[10].get()) < 300:
                             ano_7_valor_2 = 2
-                        elif entrada_entries[10].get() >= 300 and entrada_entries[10].get() < 450:
+                        elif float(entrada_entries[10].get()) >= 300 and float(entrada_entries[10].get()) < 450:
                             ano_7_valor_2 = 3
-                        elif entrada_entries[10].get() >= 450 and entrada_entries[10].get() < 600:
+                        elif float(entrada_entries[10].get()) >= 450 and float(entrada_entries[10].get()) < 600:
                             ano_7_valor_2 = 4
-                        elif entrada_entries[10].get() >= 600:
+                        elif float(entrada_entries[10].get()) >= 600:
                             ano_7_valor_2 = 5
 
                         similaridade_7_ano = (1 - ((ano_7_valor_2 - ano_7_valor_1) * -1)) / 5
@@ -520,15 +520,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 400:
                             ano_8_valor_1 = 5
 
-                        if entrada_entries[11].get() >= 0 and entrada_entries[11].get() < 100:
+                        if float(entrada_entries[11].get()) >= 0 and float(entrada_entries[11].get()) < 100:
                             ano_8_valor_2 = 1
-                        elif entrada_entries[11].get() >= 100 and entrada_entries[11].get() < 200:
+                        elif float(entrada_entries[11].get()) >= 100 and float(entrada_entries[11].get()) < 200:
                             ano_8_valor_2 = 2
-                        elif entrada_entries[11].get() >= 200 and entrada_entries[11].get() < 300:
+                        elif float(entrada_entries[11].get()) >= 200 and float(entrada_entries[11].get()) < 300:
                             ano_8_valor_2 = 3
-                        elif entrada_entries[11].get() >= 300 and entrada_entries[11].get() < 400:
+                        elif float(entrada_entries[11].get()) >= 300 and float(entrada_entries[11].get()) < 400:
                             ano_8_valor_2 = 4
-                        elif entrada_entries[11].get() >= 400:
+                        elif float(entrada_entries[11].get()) >= 400:
                             ano_8_valor_2 = 5
 
                         similaridade_8_ano = (1 - ((ano_8_valor_2 - ano_8_valor_1) * -1)) / 5
@@ -548,15 +548,15 @@ def gerar_similaridade(window):
                         elif row_data[column] >= 600:
                             ano_9_valor_1 = 5
 
-                        if entrada_entries[12].get() >= 0 and entrada_entries[12].get() < 150:
+                        if float(entrada_entries[12].get()) >= 0 and float(entrada_entries[12].get()) < 150:
                             ano_9_valor_2 = 1
-                        elif entrada_entries[12].get() >= 150 and entrada_entries[12].get() < 300:
+                        elif float(entrada_entries[12].get()) >= 150 and float(entrada_entries[12].get()) < 300:
                             ano_9_valor_2 = 2
-                        elif entrada_entries[12].get() >= 300 and entrada_entries[12].get() < 450:
+                        elif float(entrada_entries[12].get()) >= 300 and float(entrada_entries[12].get()) < 450:
                             ano_9_valor_2 = 3
-                        elif entrada_entries[12].get() >= 450 and entrada_entries[12].get() < 600:
+                        elif float(entrada_entries[12].get()) >= 450 and float(entrada_entries[12].get()) < 600:
                             ano_9_valor_2 = 4
-                        elif entrada_entries[12].get() >= 600:
+                        elif float(entrada_entries[12].get()) >= 600:
                             ano_9_valor_2 = 5
 
                         similaridade_9_ano = (1 - ((ano_9_valor_2 - ano_9_valor_1) * -1)) / 5
@@ -565,8 +565,6 @@ def gerar_similaridade(window):
                     soma_pesos = float(pesos_values["Administracao:"]) + float(pesos_values["Classe de Alfabetização:"]) + float(pesos_values["Creche:"]) + float(pesos_values["Pré escola:"]) + float(pesos_values["1 ano:"]) + float(pesos_values["2 ano:"]) + float(pesos_values["3 ano:"]) + float(pesos_values["4 ano:"]) + float(pesos_values["5 ano:"]) + float(pesos_values["6 ano:"]) + float(pesos_values["7 ano:"]) + float(pesos_values["8 ano:"]) + float(pesos_values["9 ano:"])
                     similaridade_caso = similaridade_adm * float(pesos_values["Administracao:"]) + similaridade_classe_alfabetizacao * float(pesos_values["Classe de Alfabetização:"]) + similaridade_creche * float(pesos_values["Creche:"]) + similaridade_pre_escola * float(pesos_values["Pré escola:"]) + similaridade_1_ano * float(pesos_values["1 ano:"]) + similaridade_2_ano * float(pesos_values["2 ano:"]) + similaridade_3_ano * float(pesos_values["3 ano:"]) + similaridade_4_ano * float(pesos_values["4 ano:"]) + similaridade_5_ano * float(pesos_values["5 ano:"]) + similaridade_6_ano * float(pesos_values["6 ano:"]) + similaridade_7_ano * float(pesos_values["7 ano:"]) + similaridade_8_ano * float(pesos_values["8 ano:"]) + similaridade_9_ano * float(pesos_values["9 ano:"])
                     similaridade_caso = similaridade_caso / soma_pesos
-
-                    print(similaridade_caso)
 
                 #row_data[column] = pesos_values[sheet[1][column - 1].value] if row_data[column] == "S" else 0
 
