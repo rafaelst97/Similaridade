@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eaa9ca3b-068e-4fdd-a16b-b87eb7593990" name="Changes" comment="Cálculos criados, necessário corrigir erros de execução.">
+    <list default="true" id="eaa9ca3b-068e-4fdd-a16b-b87eb7593990" name="Changes" comment="Cálculo de similaridade funcionando">
+      <change afterPath="$PROJECT_DIR$/bkp_base/Base_de_dados.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Base_de_dados.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Base_de_dados.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714626209615</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Cálculo de similaridade funcionando">
+      <option name="closed" value="true" />
+      <created>1714627357842</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1714627357842</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,7 +200,8 @@
     <MESSAGE value="Exibindo em planilha dentro do programa" />
     <MESSAGE value="colocado a barra de rolagem e alterado o visual" />
     <MESSAGE value="Cálculos criados, necessário corrigir erros de execução." />
-    <option name="LAST_COMMIT_MESSAGE" value="Cálculos criados, necessário corrigir erros de execução." />
+    <MESSAGE value="Cálculo de similaridade funcionando" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cálculo de similaridade funcionando" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Similaridade$main.coverage" NAME="main Coverage Results" MODIFIED="1714591297276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

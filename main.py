@@ -164,6 +164,7 @@ def gerar_similaridade(window):
         tree.heading("#16", text="7 ano")
         tree.heading("#17", text="8 ano")
         tree.heading("#18", text="9 ano")
+        tree.heading("#19", text="Similaridade")
 
         for col, title in enumerate(sheet[1], start=1):
             tree.column(f"#{col}", width=100)  # Definindo largura padrão para as colunas
@@ -559,7 +560,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[12].get()) >= 600:
                             ano_9_valor_2 = 5
 
-                        similaridade_9_ano = (1 - ((ano_9_valor_2 - ano_9_valor_1) * -1)) / 5
+                        similaridade_9_ano = (1 - (((ano_9_valor_2 - ano_9_valor_1)) * -1)) / 5
 
                 if count > 1:
                     soma_pesos = float(pesos_values["Administracao:"]) + float(pesos_values["Classe de Alfabetização:"]) + float(pesos_values["Creche:"]) + float(pesos_values["Pré escola:"]) + float(pesos_values["1 ano:"]) + float(pesos_values["2 ano:"]) + float(pesos_values["3 ano:"]) + float(pesos_values["4 ano:"]) + float(pesos_values["5 ano:"]) + float(pesos_values["6 ano:"]) + float(pesos_values["7 ano:"]) + float(pesos_values["8 ano:"]) + float(pesos_values["9 ano:"])
@@ -568,9 +569,11 @@ def gerar_similaridade(window):
 
                 #row_data[column] = pesos_values[sheet[1][column - 1].value] if row_data[column] == "S" else 0
 
+            sheet.cell(row=count + 1, column=19, value=similaridade_caso)
             tree.insert("", "end", text=count, values=row_data)
             count += 1
 
+        workbook.save("Base_de_dados.xlsx")
         workbook.close()
 
 root = tk.Tk()
