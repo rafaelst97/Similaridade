@@ -177,7 +177,7 @@ def gerar_similaridade(window):
             tree.column(f"#{col}", width=100)  # Definindo largura padrão para as colunas
 
         # Adicionar linhas
-        for row_data in sheet.iter_rows(min_row=3, values_only=True):
+        for index, row_data in enumerate(sheet.iter_rows(min_row=3, values_only=True), start=3):
 
             if (count == 0):
                 print(row_data)
@@ -579,8 +579,9 @@ def gerar_similaridade(window):
 
                     if (count == 0):
                         print(similaridade_caso)
+                        print(index)
 
-                    sheet.cell(row=count + 1, column=19, value=similaridade_caso)
+                    sheet.cell(row=index, column=19, value=similaridade_caso)
                     tree.insert("", "end", text=count, values=row_data)
 
                 #row_data[column] = pesos_values[sheet[1][column - 1].value] if row_data[column] == "S" else 0
