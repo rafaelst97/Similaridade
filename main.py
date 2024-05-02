@@ -93,6 +93,13 @@ def inserir_caso():
     gerar_similaridade_button = tk.Button(entrada_window, text="Gerar Similaridade", command=lambda: gerar_similaridade(entrada_window))
     gerar_similaridade_button.grid(row=len(campos), columnspan=2, pady=10)
 
+def treeview_sort_column(tree, col, reverse=False):
+    """Sorts a Treeview by a given column."""
+    data = [(tree.set(child, col), child) for child in tree.get_children('')]
+    data.sort(reverse=reverse)
+    for index, (val, child) in enumerate(data):
+        tree.move(child, '', index)
+
 def gerar_similaridade(window):
     global pesos_values
     global entrada_entries
@@ -252,7 +259,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[1].get()) >= 300:
                             classe_alfabetizacao_valor_2 = 5
 
-                        similaridade_classe_alfabetizacao = (1 - ((classe_alfabetizacao_valor_2 - classe_alfabetizacao_valor_1) * -1)) / 5
+                        similaridade_classe_alfabetizacao = 1 - ((abs(classe_alfabetizacao_valor_2 - classe_alfabetizacao_valor_1))/5)
 
                     #Similaridade de Creche
                     if column == 7:
@@ -280,7 +287,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[2].get()) >= 300:
                             creche_valor_2 = 5
 
-                        similaridade_creche = (1 - ((creche_valor_2 - creche_valor_1) * -1)) / 5
+                        similaridade_creche = 1 - ((abs(creche_valor_2 - creche_valor_1))/5)
 
                     #Similaridade de Pré escola
                     if column == 8:
@@ -308,7 +315,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[3].get()) >= 800:
                             pre_escola_valor_2 = 5
 
-                        similaridade_pre_escola = (1 - ((pre_escola_valor_2 - pre_escola_valor_1) * -1)) / 5
+                        similaridade_pre_escola = 1 - ((abs(pre_escola_valor_2 - pre_escola_valor_1))/5)
 
                     #Similaridade de 1 ano
                     if column == 9:
@@ -336,7 +343,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[4].get()) >= 200:
                             ano_1_valor_2 = 5
 
-                        similaridade_1_ano = (1 - ((ano_1_valor_2 - ano_1_valor_1) * -1)) / 5
+                        similaridade_1_ano = 1 - ((abs(ano_1_valor_2 - ano_1_valor_1))/5)
 
                     #Similaridade de 2 ano
                     if column == 10:
@@ -364,7 +371,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[5].get()) >= 400:
                             ano_2_valor_2 = 5
 
-                        similaridade_2_ano = (1 - ((ano_2_valor_2 - ano_2_valor_1) * -1)) / 5
+                        similaridade_2_ano = 1 - ((abs(ano_2_valor_2 - ano_2_valor_1))/5)
 
                     #Similaridade de 3 ano
                     if column == 11:
@@ -392,7 +399,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[6].get()) >= 400:
                             ano_3_valor_2 = 5
 
-                        similaridade_3_ano = (1 - ((ano_3_valor_2 - ano_3_valor_1) * -1)) / 5
+                        similaridade_3_ano = 1 - ((abs(ano_3_valor_2 - ano_3_valor_1))/5)
 
                     #Similaridade de 4 ano
                     if column == 12:
@@ -420,7 +427,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[7].get()) >= 400:
                             ano_4_valor_2 = 5
 
-                        similaridade_4_ano = (1 - ((ano_4_valor_2 - ano_4_valor_1) * -1)) / 5
+                        similaridade_4_ano = 1 - ((abs(ano_4_valor_2 - ano_4_valor_1))/5)
 
                     #Similaridade de 5 ano
                     if column == 13:
@@ -448,7 +455,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[8].get()) >= 400:
                             ano_5_valor_2 = 5
 
-                        similaridade_5_ano = (1 - ((ano_5_valor_2 - ano_5_valor_1) * -1)) / 5
+                        similaridade_5_ano = 1 - ((abs(ano_5_valor_2 - ano_5_valor_1))/5)
 
                     #Similaridade de 6 ano
                     if column == 14:
@@ -476,7 +483,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[9].get()) >= 600:
                             ano_6_valor_2 = 5
 
-                        similaridade_6_ano = (1 - ((ano_6_valor_2 - ano_6_valor_1) * -1)) / 5
+                        similaridade_6_ano = 1 - ((abs(ano_6_valor_2 - ano_6_valor_1))/5)
 
                     #Similaridade de 7 ano
                     if column == 15:
@@ -504,7 +511,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[10].get()) >= 600:
                             ano_7_valor_2 = 5
 
-                        similaridade_7_ano = (1 - ((ano_7_valor_2 - ano_7_valor_1) * -1)) / 5
+                        similaridade_7_ano = 1 - ((abs(ano_7_valor_2 - ano_7_valor_1))/5)
 
                     #Similaridade de 8 ano
                     if column == 16:
@@ -532,7 +539,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[11].get()) >= 400:
                             ano_8_valor_2 = 5
 
-                        similaridade_8_ano = (1 - ((ano_8_valor_2 - ano_8_valor_1) * -1)) / 5
+                        similaridade_8_ano = 1 - ((abs(ano_8_valor_2 - ano_8_valor_1))/5)
 
                     #Similaridade de 9 ano
                     if column == 17:
@@ -560,7 +567,7 @@ def gerar_similaridade(window):
                         elif float(entrada_entries[12].get()) >= 600:
                             ano_9_valor_2 = 5
 
-                        similaridade_9_ano = (1 - (((ano_9_valor_2 - ano_9_valor_1)) * -1)) / 5
+                        similaridade_9_ano = 1 - ((abs(ano_9_valor_2 - ano_9_valor_1))/5)
 
                 if count > 1:
                     soma_pesos = float(pesos_values["Administracao:"]) + float(pesos_values["Classe de Alfabetização:"]) + float(pesos_values["Creche:"]) + float(pesos_values["Pré escola:"]) + float(pesos_values["1 ano:"]) + float(pesos_values["2 ano:"]) + float(pesos_values["3 ano:"]) + float(pesos_values["4 ano:"]) + float(pesos_values["5 ano:"]) + float(pesos_values["6 ano:"]) + float(pesos_values["7 ano:"]) + float(pesos_values["8 ano:"]) + float(pesos_values["9 ano:"])
@@ -570,11 +577,18 @@ def gerar_similaridade(window):
                 #row_data[column] = pesos_values[sheet[1][column - 1].value] if row_data[column] == "S" else 0
 
             sheet.cell(row=count + 1, column=19, value=similaridade_caso)
-            tree.insert("", "end", text=count, values=row_data)
+
+            if count > 1:
+                tree.insert("", "end", text=count, values=row_data)
+
             count += 1
 
+        treeview_sort_column(tree, '#19', reverse=True)
         workbook.save("Base_de_dados.xlsx")
         workbook.close()
+
+        tree.heading("#19", text="Similaridade", command=lambda: treeview_sort_column(tree, "#19", False))
+
 
 root = tk.Tk()
 root.title("Programa de Definição de Pesos e Inserção de Caso de Entrada")
