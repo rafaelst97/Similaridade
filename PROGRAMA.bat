@@ -1,0 +1,1 @@
+start dist/main/main.exe
