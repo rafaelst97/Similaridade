@@ -93,7 +93,7 @@ def inserir_caso():
     gerar_similaridade_button = tk.Button(entrada_window, text="Gerar Similaridade", command=lambda: gerar_similaridade(entrada_window))
     gerar_similaridade_button.grid(row=len(campos), columnspan=2, pady=10)
 
-def treeview_sort_column(tree, col, reverse=False):
+def treeview_sort_column(tree, col, reverse):
     """Sorts a Treeview by a given column."""
     data = [(tree.set(child, col), child) for child in tree.get_children('')]
     data.sort(reverse=reverse)
@@ -181,6 +181,7 @@ def gerar_similaridade(window):
 
             if (count == 0):
                 print(row_data)
+                print(index)
 
             similaridade_adm = 0
             similaridade_classe_alfabetizacao = 0
@@ -588,7 +589,8 @@ def gerar_similaridade(window):
 
             count += 1
 
-        #treeview_sort_column(tree, '#19', reverse=True)
+        # Ordenar a Treeview pela coluna de similaridade
+        treeview_sort_column(tree, '#19', True)
         workbook.save("Base_de_dados.xlsx")
         workbook.close()
 

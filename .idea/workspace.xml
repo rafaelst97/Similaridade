@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eaa9ca3b-068e-4fdd-a16b-b87eb7593990" name="Changes" comment="Cálculo verificado e funcional, necessário apenas ordenar por ordem de similaridade">
+    <list default="true" id="eaa9ca3b-068e-4fdd-a16b-b87eb7593990" name="Changes" comment="Correção de erro ao salvar na planilha">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Base_de_dados.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Base_de_dados.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -198,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714690379946</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Correção de erro ao salvar na planilha">
+      <option name="closed" value="true" />
+      <created>1714691446188</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1714691446188</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,7 +235,8 @@
     <MESSAGE value="Salvando no excel, restando apenas fazer a leitura ordenada e correção de similaridade negativa" />
     <MESSAGE value="Ordenando, mas não a linha toda, necessário corrigir" />
     <MESSAGE value="Cálculo verificado e funcional, necessário apenas ordenar por ordem de similaridade" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cálculo verificado e funcional, necessário apenas ordenar por ordem de similaridade" />
+    <MESSAGE value="Correção de erro ao salvar na planilha" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correção de erro ao salvar na planilha" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Similaridade$main.coverage" NAME="main Coverage Results" MODIFIED="1714591297276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
